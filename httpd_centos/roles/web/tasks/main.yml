@@ -1,0 +1,43 @@
+---
+# These plays install httpd
+
+# Remove httpd only when extra-vars rollback=true OR remove=true
+- name: Remove httpd packages
+  yum: name=httpd state=absent update_cache=yes autoremove=yes
+  when: ({{ rollback | default('false') }}) or ({{ remove | default('false') }})
+  tags:
+  - httpd
+
+# Install previous version only when extra-vars rollback=true (remove unset OR false)
+- name: Install '{{ httpd_previous }}'
+  yum: name='{{ httpd_previous }}' state=present update_cache=yes
+  when: ({{ rollback | default('false') }}) and not({{ remove | default('false') }})
+  notify:
+  - enable httpd
+  tags:
+  - httpd
+
+- name: Install '{{ httpd_version }}'
+  yum: name='{{ httpd_version }}' state=present update_cache=yes
+  when: not({{ rollback | default('false') }}) and not({{ remove | default('false') }})
+  notify:
+  - enable httpd
+  tags:
+  - httpd
+
+# Handle apache2 modules
+- name: Enable modules
+  apache2_module: name='{{ item }}' state=present
+  when: ({{ rollback | default('false') }}) and not({{ remove | default('false') }})
+  with_items:
+    - rewrite
+  tags:
+  - httpd
+
+- name: insert firewalld rule for httpd
+  firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes
+  notify:
+  - restart fwd
+  tags:
+  - firewalld
+  - httpd

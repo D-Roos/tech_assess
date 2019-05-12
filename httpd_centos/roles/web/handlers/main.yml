@@ -1,0 +1,22 @@
+---
+# Handlers to restart and reload services.
+
+# Ensure firewalld is restarted (eg: after changes)
+- name: restart fwd
+  systemd: state=restarted name=firewalld daemon_reload=yes
+
+# Ensure httpd is enabled and not masked
+- name: enable httpd
+  systemd: enabled=yes masked=no name=httpd
+
+# Ensure httpd is running
+- name: run httpd
+  systemd: state=started name=httpd
+
+# Ensure httpd is reloaded including config (eg: after changes)
+- name: reload httpd
+  systemd: state=reloaded name=httpd daemon_reload=yes
+
+# Ensure httpd is restarted (eg: after changes)
+- name: restart httpd
+  systemd: state=restarted name=httpd daemon_reload=yes

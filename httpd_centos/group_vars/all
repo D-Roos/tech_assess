@@ -2,4 +2,5 @@
 # These are applicable to all groups
 
 httpd_port: 80
-httpd_version: httpd
+httpd_previous: httpd-2.4.6-88.el7.centos   # Previous version of httpd to deploy when performing rollback
+httpd_version: httpd                        # Version of httpd to deploy (Use 'httpd' if latest)

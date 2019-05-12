@@ -8,7 +8,6 @@
     - firewalld
     - git
     - curl
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red HatEnterprise Linux'
   tags:
     - packages
 
@@ -18,7 +17,6 @@
     service: ssh
     permanent: true
     state: enabled
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red HatEnterprise Linux'
   notify:
     - restart fwd
   tags:

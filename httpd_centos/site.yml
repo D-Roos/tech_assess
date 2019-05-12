@@ -9,5 +9,6 @@
 
 - name: Deploy and configure httpd package
   hosts: pWebserver
+  serial: 1     # (+) must be able to deploy without affecting customer experience (with cluster of 3 nodes or more)
   roles:
     - web
