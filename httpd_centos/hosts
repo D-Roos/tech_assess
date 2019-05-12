@@ -1,0 +1,14 @@
+# Pool settings
+[pWebserver:vars]
+ansible_user=support
+ansible_become=yes
+ansible_become_method=sudo
+ansible_become_pass='{{ vault_sudo_pass }}'
+
+# Pool of webserver type hosts
+# - Add new hosts to pool below
+# - Remove hosts that have been reinstated
+[pWebserver]
+web01
+web02
+web03

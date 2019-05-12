@@ -1,0 +1,5 @@
+---
+# These are applicable to all groups
+
+httpd_port: 80
+httpd_version: httpd

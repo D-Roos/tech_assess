@@ -1,0 +1,13 @@
+---
+# This playbook deploys httpd package in this site.
+# NOTE: Host pool configuration is done in the hosts file
+
+- name: apply common configuration to all nodes
+  hosts: pWebserver
+  roles:
+    - common
+
+- name: Deploy and configure httpd package
+  hosts: pWebserver
+  roles:
+    - web
