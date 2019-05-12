@@ -17,12 +17,12 @@ The current playbook provides a downgrade option for the httpd package. Check th
 
 To downgrade to a specific version, modify the file `group_vars/all` in the playbook directory. In it, replace the version specified with `httpd_previous:`, eg: `httpd-2.4.6-88.el7.centos`. After modifying the file, you perform the downgrade by issuing the command
 
-    ansible-playbook site.yml -vv -i hosts --ask-vault-pass --extra-vars '@passwd_vault.yml' --extra-vars "rollback=true"
+    ansible-playbook site.yml -i hosts --ask-vault-pass --extra-vars '@passwd_vault.yml' --extra-vars "rollback=true"
 
 ## <a name="remove-httpd"></a> Remove httpd
 The playbook also provides a remove method for the httpd package. You remove the installed httpd by issuing the command
 
-    ansible-playbook site.yml -vv -i hosts --ask-vault-pass --extra-vars '@passwd_vault.yml' --extra-vars "remove=true"
+    ansible-playbook site.yml -i hosts --ask-vault-pass --extra-vars '@passwd_vault.yml' --extra-vars "remove=true"
 
 # <a name="run-specific-tasks-or-skip-them"></a>Run specific tasks (tags) or skip them:
 Throughout the plays 'tags' are used which enable installation (or skipping) of specific plays:
