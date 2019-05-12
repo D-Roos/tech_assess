@@ -38,4 +38,4 @@ To skip deployment of packages, use
 ## <a name="check-available-version-of-a-package"></a>Check available versions of package
 In order to obtain a list of currently available package versions for httpd on a host, run:
 
-   yum --showduplicates list httpd*
+    yum --showduplicates list httpd*
