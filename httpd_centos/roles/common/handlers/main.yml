@@ -1,0 +1,10 @@
+---
+# Handlers to restart and reload services.
+
+# Ensure firewalld is running
+- name: run firewalld
+  systemd: state=started name=firewalld
+
+# Ensure firewalld is restarted (eg: after changes)
+- name: restart fwd
+  systemd: state=restarted name=firewalld daemon_reload=yes

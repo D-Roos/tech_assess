@@ -1,0 +1,25 @@
+---
+# These plays are issued for common roles
+
+# Ensure dependencies are installed
+- name: Install common dependencies
+  yum: name={{ item }} state=installed  # Install latest package version through yum
+  with_items:
+    - firewalld
+    - git
+    - curl
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red HatEnterprise Linux'
+  tags:
+    - packages
+
+# Initial setup of firewalld (Open ssh port)
+- name: Configure firewalld service
+  firewalld:
+    service: ssh
+    permanent: true
+    state: enabled
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red HatEnterprise Linux'
+  notify:
+    - restart fwd
+  tags:
+    - firewalld
